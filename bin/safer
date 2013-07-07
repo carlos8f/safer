@@ -2,6 +2,8 @@
 var cryptic = require('cryptic')
   , cmd = require('commander')
 
+// @todo: does commander.js handle backspaces in passphrase entry?
+
 cmd
   .version(require('../package.json').version)
   .usage('<in_file> <out_file>')

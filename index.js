@@ -8,7 +8,13 @@ exports.safe = function (passphrase, obj, p, cb) {
 exports.unsafe = function (passphrase, p, cb) {
   cryptic.fromFile(passphrase, p, function (err, c) {
     if (err) return cb(err);
-    cb(null, JSON.parse(c.decrypt().toString()));
+    try {
+      c.decrypt();
+    }
+    catch (e) {
+      return cb(e);
+    }
+    cb(null, JSON.parse(c.toString()));
   });
 };
 

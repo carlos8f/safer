@@ -1,0 +1,37 @@
+{
+  "name": "safer",
+  "version": "0.0.0",
+  "description": "encrypt an object and save/restore it from a file",
+  "main": "index.js",
+  "bin": "./bin/safer",
+  "dependencies": {
+    "cryptic": "~0.1.2",
+    "commander": "~1.2.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/carlos8f/safer.git"
+  },
+  "homepage": "https://github.com/carlos8f/safer",
+  "keywords": [
+    "encryption",
+    "password",
+    "passphrase",
+    "credentials",
+    "security",
+    "secure"
+  ],
+  "author": "Carlos Rodriguez <carlos@s8f.org> (http://s8f.org/)",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "ad4a62a5b184b3d8637191fcfe08086f29c17536",
+  "bugs": {
+    "url": "https://github.com/carlos8f/safer/issues"
+  }
+}

@@ -6,6 +6,7 @@ cmd
   .version(require('../package.json').version)
   .usage('<in_file> <out_file>')
   .option('-u, --unsafe', 'decrypt instead of encrypt')
+  .option('-p, --passphrase <passphrase>', 'passphrase (default is to prompt for passphrase)')
   .parse(process.argv)
 
 if (cmd.args.length !== 2) {
@@ -13,7 +14,10 @@ if (cmd.args.length !== 2) {
   process.exit(1);
 }
 
-cmd.password('passphrase: ', function (passphrase) {
+if (cmd.passphrase) doCommand(cmd.passphrase)
+else cmd.password('passphrase: ', doCommand);
+
+function doCommand (passphrase) {
   cryptic.fromFile(passphrase, cmd.args[0], function (err, c) {
     if (err) throw err;
     cmd.unsafe ? c.decrypt() : c.encrypt();
@@ -21,4 +25,4 @@ cmd.password('passphrase: ', function (passphrase) {
       if (err) throw err;
     });
   });
-});
+}

@@ -17,12 +17,22 @@ if (cmd.args.length !== 2) {
 if (cmd.passphrase) doCommand(cmd.passphrase)
 else cmd.password('passphrase: ', doCommand);
 
+function onErr (err) {
+  if (err) {
+    console.error('Error: ' + err.message);
+    process.exit(1);
+  }
+}
+
 function doCommand (passphrase) {
   cryptic.fromFile(passphrase, cmd.args[0], function (err, c) {
-    if (err) throw err;
-    cmd.unsafe ? c.decrypt() : c.encrypt();
-    c.toFile(cmd.args[1], function (err) {
-      if (err) throw err;
-    });
+    if (err) onErr(err);
+    try {
+      cmd.unsafe ? c.decrypt() : c.encrypt();
+    }
+    catch (e) {
+      onErr(e);
+    }
+    c.toFile(cmd.args[1], onErr);
   });
 }

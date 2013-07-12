@@ -6,7 +6,8 @@
   "bin": "./bin/safer",
   "dependencies": {
     "cryptic": "~0.1.2",
-    "commander": "~1.2.0"
+    "commander": "~1.2.0",
+    "cli-prompt": "~0.3.2"
   },
   "devDependencies": {
     "mocha": "*"

@@ -1,5 +1,5 @@
 var cryptic = require('cryptic')
-  , cmd = require('commander')
+  , prompt = require('cli-prompt')
 
 exports.safe = function (passphrase, obj, p, cb) {
   cryptic(passphrase, JSON.stringify(obj)).encrypt().toFile(p, cb);
@@ -19,7 +19,7 @@ exports.unsafe = function (passphrase, p, cb) {
 };
 
 exports.prompt = function (p, cb) {
-  cmd.password('passphrase: ', function (passphrase) {
+  prompt.password('passphrase: ', function (passphrase) {
     exports.unsafe(passphrase, p, cb);
   });
 };

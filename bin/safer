@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var cryptic = require('cryptic')
   , cmd = require('commander')
+  , prompt = require('cli-prompt')
 
 // @todo: does commander.js handle backspaces in passphrase entry?
 
@@ -17,7 +18,17 @@ if (cmd.args.length !== 2) {
 }
 
 if (cmd.passphrase) doCommand(cmd.passphrase)
-else cmd.password('passphrase: ', doCommand);
+else getPassphrase();
+
+function getPassphrase () {
+  cmd.password('passphrase: ', function (passphrase) {
+    if (!cmd.unsafe) cmd.password('repeat passphrase: ', function (repeated) {
+      if (repeated !== passphrase) return getPassphrase();
+      doCommand(passphrase);
+    })
+    else doCommand(passphrase);
+  });
+}
 
 function onErr (err) {
   if (err) {
@@ -29,12 +40,8 @@ function onErr (err) {
 function doCommand (passphrase) {
   cryptic.fromFile(passphrase, cmd.args[0], function (err, c) {
     if (err) onErr(err);
-    try {
-      cmd.unsafe ? c.decrypt() : c.encrypt();
-    }
-    catch (e) {
-      onErr(e);
-    }
+    try { cmd.unsafe ? c.decrypt() : c.encrypt() }
+    catch (e) { onErr(e) }
     c.toFile(cmd.args[1], onErr);
   });
 }

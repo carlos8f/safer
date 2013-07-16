@@ -3,8 +3,6 @@ safer
 
 encrypt an object and save/restore it from a file
 
-[![build status](https://secure.travis-ci.org/carlos8f/safer.png)](http://travis-ci.org/carlos8f/safer)
-
 - - -
 
 ### Developed by [Terra Eclipse](http://www.terraeclipse.com)
